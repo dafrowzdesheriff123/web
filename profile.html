@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="profile-container">
+    <h1 id="username"></h1>
+    <input type="text" id="bioInput" placeholder="Write your bio...">
+    <button id="saveBioBtn">Save Bio</button>
+    <button id="backBtn">Back</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const username = document.getElementById('username');
+    const bioInput = document.getElementById('bioInput');
+    const saveBioBtn = document.getElementById('saveBioBtn');
+    const backBtn = document.getElementById('backBtn');
+
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) window.location.href = "login.html";
+      username.textContent = `@${user.email.split('@')[0]}`;
+      const doc = await db.collection("profiles").doc(user.uid).get();
+      if (doc.exists) bioInput.value = doc.data().bio || "";
+    });
+
+    saveBioBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      await db.collection("profiles").doc(user.uid).set({ bio: bioInput.value });
+      alert("Bio saved!");
+    });
+
+    backBtn.addEventListener("click", () => {
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
