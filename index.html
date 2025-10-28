@@ -1,243 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Facebook-like UI — Demo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- Reset & base ---------- */
-    :root{
-      --bg:#f0f2f5;
-      --white:#fff;
-      --muted:#65676b;
-      --primary:#1877f2;
-      --card-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      --border: 1px solid #e6e6e6;
-      --max-width:1200px;
-      --radius:10px;
-      --glass: rgba(255,255,255,0.6);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background:var(--bg);
-      color:#1c1e21;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* ---------- top bar ---------- */
-    .topbar{
-      position:sticky;top:0;z-index:40;
-      background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
-      border-bottom:1px solid #e9eaee;
-      backdrop-filter: blur(6px);
-      display:flex;align-items:center;justify-content:center;
-      height:64px;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
-    }
-    .topbar .container{
-      width:100%;max-width:var(--max-width);display:flex;gap:16px;align-items:center;padding:0 16px;
-    }
-    .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{
-      width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#155db9,#2e7bf6);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px
-    }
-    .search{
-      flex:1;max-width:520px;display:flex;align-items:center;background:var(--white);padding:8px 12px;border-radius:20px;border:1px solid #e6e6e6;box-shadow:var(--card-shadow)
-    }
-    .search input{border:0;outline:0;font-size:14px;width:100%}
-
-    .top-actions{display:flex;gap:8px;align-items:center}
-    .icon-btn{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:8px;background:transparent;border:none;cursor:pointer}
-    .icon-btn.primary{background:var(--primary);color:white}
-
-    /* ---------- layout ---------- */
-    .layout{display:flex;gap:18px;justify-content:center;padding:20px 16px;max-width:var(--max-width);margin:0 auto}
-    .col{background:transparent}
-    .left{flex:0 0 260px}
-    .center{flex:1;max-width:640px}
-    .right{flex:0 0 300px}
-
-    /* ---------- cards ---------- */
-    .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:14px;border:var(--border)}
-
-    /* left sidebar ---------- */
-    .profile-mini{display:flex;gap:12px;align-items:center}
-    .avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ffb86b,#ff7b7b);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-    .menu{margin-top:14px;display:flex;flex-direction:column;gap:8px}
-    .menu a{display:flex;gap:12px;align-items:center;padding:8px;border-radius:8px;text-decoration:none;color:#222}
-
-    /* center feed */
-    .composer{display:flex;gap:12px;align-items:center}
-    .composer textarea{flex:1;border-radius:20px;padding:12px;border:1px solid #e6e6e6;resize:none;height:48px}
-    .composer .post-btn{background:var(--primary);color:white;border:none;padding:8px 14px;border-radius:20px;cursor:pointer}
-
-    .stories{display:flex;gap:10px;margin-top:12px}
-    .story{width:110px;height:160px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#ffd1a9,#ff8aa1);display:flex;align-items:end;padding:8px;color:white;font-weight:700}
-
-    .post{margin-top:16px}
-    .post .post-head{display:flex;gap:12px;align-items:center}
-    .post .post-body{margin-top:10px}
-    .post .post-image{margin-top:10px;border-radius:10px;overflow:hidden}
-    .post .post-actions{display:flex;gap:8px;margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px}
-    .post .action{flex:1;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:8px;cursor:pointer}
-
-    /* right sidebar */
-    .suggestion{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-    .small-card{padding:10px}
-
-    /* responsive */
-    @media (max-width:1000px){
-      .layout{padding:12px}
-      .left,.right{display:none}
-      .center{max-width:100%}
-      .topbar .container{padding:0 10px}
-      .search{max-width:300px}
-    }
-
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reels Feed</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div class="brand">
-        <div class="logo">f</div>
-        <div style="font-weight:700;font-size:18px;color:#1c1e21">FaceDemo</div>
-      </div>
+  <nav class="navbar">
+    <h1>ReelSpace</h1>
+    <button id="logoutBtn">Logout</button>
+  </nav>
 
-      <div class="search" role="search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="margin-right:8px;opacity:0.6"><path d="M21 21l-4.35-4.35" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="#666" stroke-width="2"/></svg>
-        <input placeholder="Search on FaceDemo" aria-label="Search" />
-      </div>
+  <section class="upload-section">
+    <input type="file" id="videoFile" accept="video/*">
+    <button id="uploadBtn">Upload Reel</button>
+  </section>
 
-      <div class="top-actions">
-        <button class="icon-btn" title="Home">🏠</button>
-        <button class="icon-btn" title="Friends">👥</button>
-        <button class="icon-btn" title="Watch">▶️</button>
-        <button class="icon-btn primary" title="Create">＋</button>
-      </div>
-    </div>
-  </div>
+  <main id="reelsContainer"></main>
 
-  <main class="layout">
-    <aside class="col left">
-      <div class="card">
-        <div class="profile-mini">
-          <div class="avatar">L</div>
-          <div>
-            <div style="font-weight:700">Levis Saidim</div>
-            <div style="font-size:12px;color:var(--muted)">View profile</div>
-          </div>
-        </div>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js"></script>
 
-        <nav class="menu">
-          <a href="#">🏠 News Feed</a>
-          <a href="#">👥 Friends</a>
-          <a href="#">🛍️ Marketplace</a>
-          <a href="#">🎮 Gaming</a>
-          <a href="#">⚙️ Settings</a>
-        </nav>
-      </div>
-
-      <div class="card" style="margin-top:12px">
-        <div style="font-weight:700;margin-bottom:8px">Shortcuts</div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--muted)">
-          <a href="#">Levis's Projects</a>
-          <a href="#">College Group</a>
-        </div>
-      </div>
-    </aside>
-
-    <section class="col center">
-      <div class="card">
-        <div class="composer">
-          <div class="avatar" style="width:48px;height:48px">L</div>
-          <textarea placeholder="What's on your mind, Levis?" aria-label="Create post"></textarea>
-          <button class="post-btn">Post</button>
-        </div>
-
-        <div class="stories" aria-hidden="false">
-          <div class="story">Your Story</div>
-          <div class="story">Friend's Story</div>
-          <div class="story">Campus</div>
-        </div>
-      </div>
-
-      <!-- Post 1 -->
-      <div class="post card">
-        <div class="post-head">
-          <div class="avatar">M</div>
-          <div>
-            <div style="font-weight:700">Mary Kim</div>
-            <div style="font-size:12px;color:var(--muted)">2 hrs · Public</div>
-          </div>
-        </div>
-        <div class="post-body">Excited about the new project launch — can’t wait to share more!</div>
-        <div class="post-image"><img src="https://picsum.photos/800/400?random=12" alt="post image" style="width:100%;display:block"></div>
-        <div class="post-actions">
-          <div class="action">👍 Like</div>
-          <div class="action">💬 Comment</div>
-          <div class="action">↗️ Share</div>
-        </div>
-      </div>
-
-      <!-- Post 2 -->
-      <div class="post card">
-        <div class="post-head">
-          <div class="avatar">J</div>
-          <div>
-            <div style="font-weight:700">John Doe</div>
-            <div style="font-size:12px;color:var(--muted)">Yesterday · Friends</div>
-          </div>
-        </div>
-        <div class="post-body">A quick tip for beginners learning coding: practice daily and build tiny projects.</div>
-        <div class="post-actions">
-          <div class="action">👍 Like</div>
-          <div class="action">💬 Comment</div>
-          <div class="action">↗️ Share</div>
-        </div>
-      </div>
-
-    </section>
-
-    <aside class="col right">
-      <div class="card small-card">
-        <div style="font-weight:700;margin-bottom:8px">People You May Know</div>
-        <div class="suggestion">
-          <div class="avatar" style="width:40px;height:40px">A</div>
-          <div style="flex:1">
-            <div style="font-weight:700">Alice W</div>
-            <div style="font-size:12px;color:var(--muted)">3 mutual friends</div>
-          </div>
-          <button style="background:var(--primary);color:white;border:none;padding:6px 8px;border-radius:8px;cursor:pointer">Add</button>
-        </div>
-
-        <div class="suggestion">
-          <div class="avatar" style="width:40px;height:40px">P</div>
-          <div style="flex:1">
-            <div style="font-weight:700">Peter Otieno</div>
-            <div style="font-size:12px;color:var(--muted)">1 mutual friend</div>
-          </div>
-          <button style="background:#e9eaee;border:none;padding:6px 8px;border-radius:8px;cursor:pointer">Add</button>
-        </div>
-      </div>
-
-      <div class="card small-card" style="margin-top:12px">
-        <div style="font-weight:700;margin-bottom:8px">Sponsored</div>
-        <img src="https://picsum.photos/300/120?random=5" alt="ad" style="width:100%;border-radius:8px;display:block">
-      </div>
-    </aside>
-  </main>
-
+  <!-- Firebase Config -->
   <script>
-    // Small interactive touches for demo
-    document.querySelectorAll('.action').forEach(el=>el.addEventListener('click',()=>{
-      el.style.opacity=0.6;setTimeout(()=>el.style.opacity=1,220);
-    }));
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
   </script>
+
+  <script src="reels.js"></script>
 </body>
 </html>
